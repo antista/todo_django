@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+    <link rel="stylesheet" type="text/css" href="static/styles/index.css">
+    <link rel="shortcut icon" type="image/png" href="static/styles/images/favicon.ico"/>
+</head>
+<body>
+<p class="logout-button"><a href="{% url 'logout' %}">Выйти</a></p>
+<h1 class="title">Ваши задачи</h1>
+
+<div class="note">
+    <p class="note-title">ToDo</p>
+    <form action="/create_task" method="post" class="note-form">
+        {% csrf_token %}
+        <p>Задача: <input type=text name=title required></p>
+        <p>Когда завершить: <input type=datetime-local name=completion_date></p>
+        <p><input type=submit value='Создать'></p>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Задача</th>
+        {#        <th>Создана</th>#}
+        <th>Завершить</th>
+        {#        <th>Завершено</th>#}
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            {% if task.completed %}
+                <td class="completed"><a href="/uncomplete_task/{{ task.id }}" class="completed"
+                                         title="Нажмите, если задача не выполнена"> {{ task.title }} </a></td>
+                {#                <td>{{ task.created_date|date:"d.m.Y G:i" }}</td>#}
+                <td class="completed">{{ task.completion_date|date:"d.m.Y G:i" }}</td>
+                <td class="completed"><a href="/delete_task/{{ task.id }}" class="delete-button" title="Нажмите чтобы удалить задачу">
+                Удалить </a></td>
+            {% else %}
+                <td><a href="/complete_task/{{ task.id }}" title="Нажмите, если задача выполнена"> {{ task.title }} </a>
+                </td>
+                {#                <td>{{ task.created_date|date:"d.m.Y G:i" }}</td>#}
+                <td>{{ task.completion_date|date:"d.m.Y G:i" }}</td>
+                <td><a href="/delete_task/{{ task.id }}" class="delete-button" title="Нажмите чтобы удалить задачу">
+                Удалить </a></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
