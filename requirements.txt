@@ -1,4 +1,4 @@
-Django==3.0.2
+Django>=3.0.3
 mysql-connector-python>=8.0.19
 PyMySQL>=0.9.3
 mysqlclient==1.4.6
