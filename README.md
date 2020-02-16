@@ -23,6 +23,6 @@
 * `flake8 todo/`
 * `flake8 todo_app/`
 
-### Внешний вид главной страницы
+## Внешний вид главной страницы
 ![Иллюстрация к проекту](https://github.com/antista/todo_django/blob/master/todo_app/static/styles/images/examples/example1.png)
 
