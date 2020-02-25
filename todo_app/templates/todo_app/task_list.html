@@ -24,9 +24,7 @@
     <thead>
     <tr>
         <th>Задача</th>
-        {#        <th>Создана</th>#}
         <th>Завершить</th>
-        {#        <th>Завершено</th>#}
         <th></th>
     </tr>
     </thead>
@@ -34,19 +32,18 @@
     {% for task in tasks %}
         <tr>
             {% if task.completed %}
-                <td class="completed"><a href="/uncomplete_task/{{ task.id }}" class="completed"
+                <td class="completed"><a href="/complete_task/{{ task.id }}" class="completed"
                                          title="Нажмите, если задача не выполнена"> {{ task.title }} </a></td>
-                {#                <td>{{ task.created_date|date:"d.m.Y G:i" }}</td>#}
                 <td class="completed">{{ task.completion_date|date:"d.m.Y G:i" }}</td>
-                <td class="completed"><a href="/delete_task/{{ task.id }}" class="delete-button" title="Нажмите чтобы удалить задачу">
-                Удалить </a></td>
+                <td class="completed"><a href="/delete_task/{{ task.id }}" class="delete-button"
+                                         title="Нажмите чтобы удалить задачу">
+                    Удалить </a></td>
             {% else %}
                 <td><a href="/complete_task/{{ task.id }}" title="Нажмите, если задача выполнена"> {{ task.title }} </a>
                 </td>
-                {#                <td>{{ task.created_date|date:"d.m.Y G:i" }}</td>#}
                 <td>{{ task.completion_date|date:"d.m.Y G:i" }}</td>
                 <td><a href="/delete_task/{{ task.id }}" class="delete-button" title="Нажмите чтобы удалить задачу">
-                Удалить </a></td>
+                    Удалить </a></td>
             {% endif %}
         </tr>
     {% endfor %}

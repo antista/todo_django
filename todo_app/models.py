@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 from uuid import uuid4
 from django.conf import settings
@@ -18,11 +19,14 @@ class Task(models.Model):
     @staticmethod
     def create(user, title, completion_date):
         try:
+            if completion_date and datetime.datetime.strptime(completion_date,
+                                                              '%Y-%m-%dT%H:%M') < datetime.datetime.now():
+                return 'Нельзя создать задачу в прошлом'
             task = Task(id=uuid4().hex, user=user, title=title,
-                        completion_date=completion_date if completion_date else timezone.now() + timedelta(hours=24))
+                        completion_date=completion_date if completion_date else timezone.now() + timedelta(days=1))
             task.save()
         except Exception as e:
-            return e.args[1]
+            return e.args[0]
 
     @staticmethod
     def get_user_tasks(user):
@@ -33,20 +37,12 @@ class Task(models.Model):
         Task.objects.filter(id=id).delete()
 
     @staticmethod
-    def complete_task(id):
-        task = Task.objects.get(id=id)
+    def change_task_status(id):
+        """Изменение статуса задачи выполнен/не выполнен"""
+        task = Task.objects.filter(id=id).first()
         if not task:
             return False
-        task.completed = True
-        task.save()
-        return True
-
-    @staticmethod
-    def uncomplete_task(id):
-        task = Task.objects.get(id=id)
-        if not task:
-            return False
-        task.completed = False
+        task.completed = not task.completed
         task.save()
         return True
 
