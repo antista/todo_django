@@ -19,8 +19,8 @@ class Task(models.Model):
     @staticmethod
     def create(user, title, completion_date):
         try:
-            if completion_date and datetime.datetime.strptime(completion_date,
-                                                              '%Y-%m-%dT%H:%M') < datetime.datetime.now():
+            if completion_date and \
+                    datetime.datetime.strptime(completion_date, '%Y-%m-%dT%H:%M') < datetime.datetime.now():
                 return 'Нельзя создать задачу в прошлом'
             task = Task(id=uuid4().hex, user=user, title=title,
                         completion_date=completion_date if completion_date else timezone.now() + timedelta(days=1))
