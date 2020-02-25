@@ -4,6 +4,7 @@
 ## Реализованный функционал
 * Авторизация, регистрация
 * Создание задач
+* Метки выполнено/не выполнено
 
 ### Использованные технологии
 * Python3.7
@@ -22,6 +23,9 @@
 ### Запуск линтера
 * `flake8 todo/`
 * `flake8 todo_app/`
+
+### Запуск тестов
+`python manage.py test`
 
 ## Внешний вид главной страницы
 ![Иллюстрация к проекту](https://github.com/antista/todo_django/blob/master/todo_app/static/styles/images/examples/example1.png)
